@@ -1,6 +1,5 @@
 package com.example.fox_kt.infra.feign
 
-import com.example.fox_kt.infra.feign.SchoolInfoClient
 import com.example.fox_kt.domain.school.domain.School
 import com.example.fox_kt.domain.school.domain.repository.SchoolRepository
 import org.springframework.stereotype.Service
@@ -8,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class SchoolFeignService(
-private val schoolInfoClient: SchoolInfoClient,
-private val schoolRepository: SchoolRepository
+    private val schoolRepository: SchoolRepository,
+    private val schoolInfoClient: SchoolInfoClient
 ) {
 
     @Transactional
