@@ -7,8 +7,7 @@ import com.example.fox_kt.domain.user.exception.EmailCodeMissMatchException
 import com.example.fox_kt.domain.user.exception.NameAlreadyExistsException
 import com.example.fox_kt.domain.user.exception.PasswordMissMatchException
 import com.example.fox_kt.domain.user.presentation.dto.request.UserSignupRequest
-import com.example.fox_kt.infra.mail.domain.repository.EmailCodeRepository
-import org.springframework.data.repository.findByIdOrNull
+import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -17,14 +16,12 @@ import org.springframework.transaction.annotation.Transactional
 class UserSignupService (
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
-    private val mailCodeRepository: EmailCodeRepository
+    private val stringRedisTemplate: StringRedisTemplate
 ){
     @Transactional
     fun signup (userSignupRequest: UserSignupRequest) {
-        println("asdf")
-        val validEmailCode = mailCodeRepository.findByIdOrNull(userSignupRequest.email) ?: throw RuntimeException()
 
-        if (validEmailCode.emailCode != userSignupRequest.validEmailCode) {
+        if (userSignupRequest.validEmailCode !=(stringRedisTemplate.opsForValue().get(userSignupRequest.email))) {
             throw EmailCodeMissMatchException
         }
 
