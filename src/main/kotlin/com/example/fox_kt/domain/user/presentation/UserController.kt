@@ -4,6 +4,7 @@ import com.example.fox_kt.domain.user.presentation.dto.request.FindPasswordWthEm
 import com.example.fox_kt.domain.user.presentation.dto.request.ModifyPasswordRequest
 import com.example.fox_kt.domain.user.presentation.dto.request.UserLoginRequest
 import com.example.fox_kt.domain.user.presentation.dto.request.UserSignupRequest
+import com.example.fox_kt.domain.user.presentation.dto.response.QueryMyInfoResponse
 import com.example.fox_kt.domain.user.service.*
 import com.example.fox_kt.global.security.jwt.dto.TokenResponse
 import org.springframework.web.bind.annotation.*
@@ -16,7 +17,8 @@ class UserController(
     private val userLoginService: UserLoginService,
     private val uploadUserProfileService: UploadUserProfileService,
     private val modifyPasswordService: ModifyPasswordService,
-    private val findPasswordWithEmailService: FindPasswordWithEmailService
+    private val findPasswordWithEmailService: FindPasswordWithEmailService,
+    private val queryMyInfoService: QueryMyInfoService
 ) {
     @PostMapping("/signup")
     fun signup(@RequestBody userSignupRequest: UserSignupRequest) =
@@ -37,4 +39,8 @@ class UserController(
     @PatchMapping("/new/password")
     fun passwordWithEmail(findPasswordWthEmailRequest: FindPasswordWthEmailRequest) =
         findPasswordWithEmailService.passwordWithEmail(findPasswordWthEmailRequest)
+
+    @GetMapping("/info")
+    fun queryMyInfo() : QueryMyInfoResponse =
+            queryMyInfoService.queryMyInfo()
 }
