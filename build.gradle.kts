@@ -46,6 +46,7 @@ dependencies {
 
     implementation(enforcedPlatform("org.springframework.cloud:spring-cloud-dependencies:2020.0.5"))
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation ("org.springframework.cloud:spring-cloud-starter-loadbalancer")
 }
 
 tasks.withType<KotlinCompile> {
