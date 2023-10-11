@@ -1,6 +1,6 @@
 package com.example.fox_kt.domain.user.presentation.dto.request
 
-class ModifyPasswordRequest (
+data class ModifyPasswordRequest (
     val password : String,
     val newPassword : String,
     val validPassword : String,
