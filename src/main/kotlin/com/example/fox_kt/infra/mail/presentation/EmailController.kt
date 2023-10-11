@@ -15,12 +15,12 @@ class EmailController(
     private val resendCodeRequestService: ResendCodeRequestService
 ) {
     @PostMapping
-    fun requestEmailCode(@RequestParam email : String) : MailResponse {
+    fun requestEmailCode(@RequestParam email : String) : String? {
         return createEmailCodeService.sendVerificationCode(email)
     }
 
     @PostMapping("/resend")
-    fun resendEmailCode (@RequestParam email : String) : MailResponse {
+    fun resendEmailCode (@RequestParam email : String) : String? {
         return resendCodeRequestService.ResendCode(email)
     }
 }
