@@ -2,6 +2,7 @@ package com.example.fox_kt.infra.feign
 
 import com.example.fox_kt.domain.school.domain.School
 import com.example.fox_kt.domain.school.domain.repository.SchoolRepository
+import com.example.fox_kt.domain.school.presentation.SchoolRequest
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -13,7 +14,7 @@ class SchoolFeignService(
 
     @Transactional
     fun fetchAndSaveSchoolInfoToDB() {
-            val schoolInfoResponses = schoolInfoClient.getSchoolInfo()
+            val schoolInfoResponses = schoolInfoClient.getSchoolInfo("json", 1, 100, "고등학교", "c286db4930774debacc664b905a7524a")
 
             val schoolInfoEntity = School(
                 schulNm = schoolInfoResponses.schulNm,
