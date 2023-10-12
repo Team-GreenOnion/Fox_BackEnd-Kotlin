@@ -20,11 +20,9 @@ class FindPasswordWithEmailService(
      fun passwordWithEmail(findPasswordWthEmailRequest: FindPasswordWthEmailRequest) {
          val user : User = userFacade.getUserByEmail(findPasswordWthEmailRequest.email)
 
-
          if (findPasswordWthEmailRequest.email!=(stringRedisTemplate.opsForValue().get(findPasswordWthEmailRequest.email))) {
              throw EmailCodeMissMatchException
          }
-
 
          if (findPasswordWthEmailRequest.newPassword != findPasswordWthEmailRequest.validPassword) {
              throw PasswordMissMatchException
