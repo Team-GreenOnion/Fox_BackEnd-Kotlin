@@ -27,10 +27,8 @@ class CreateEmailCodeService (
         return codeBuilder.toString()
     }
 
+    @Async
     fun sendVerificationCode(email: String): String? {
-        if (redisTemplate.opsForValue()[email] != null) {
-             throw EmailAlreadyExistsException
-        }
         val verificationCode = generateVerificationCode()
         val message = SimpleMailMessage()
         message.setTo(email)
