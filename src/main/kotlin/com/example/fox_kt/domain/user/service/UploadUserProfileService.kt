@@ -2,7 +2,7 @@ package com.example.fox_kt.domain.user.service
 
 import com.example.fox_kt.domain.user.domain.User
 import com.example.fox_kt.domain.user.facade.UserFacade
-import com.example.fox_kt.infra.s3.service.S3Service
+import com.example.fox_kt.infrastructure.s3.service.S3Service
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.multipart.MultipartFile

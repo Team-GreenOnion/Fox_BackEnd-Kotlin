@@ -1,7 +1,5 @@
-package com.example.fox_kt.infra.mail.service
+package com.example.fox_kt.infrastructure.mail.service
 
-import com.example.fox_kt.domain.user.exception.EmailAlreadyExistsException
-import lombok.RequiredArgsConstructor
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.mail.SimpleMailMessage
 import org.springframework.mail.javamail.JavaMailSender

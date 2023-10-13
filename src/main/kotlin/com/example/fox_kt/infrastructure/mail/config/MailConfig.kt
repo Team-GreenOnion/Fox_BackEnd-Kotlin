@@ -1,4 +1,4 @@
-package com.example.fox_kt.infra.mail.config
+package com.example.fox_kt.infrastructure.mail.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

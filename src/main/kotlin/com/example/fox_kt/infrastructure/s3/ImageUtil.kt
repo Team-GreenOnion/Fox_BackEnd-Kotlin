@@ -1,4 +1,4 @@
-package com.example.fox_kt.infra.s3
+package com.example.fox_kt.infrastructure.s3
 
 import org.springframework.web.multipart.MultipartFile
 

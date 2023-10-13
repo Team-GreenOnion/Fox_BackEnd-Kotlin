@@ -1,4 +1,4 @@
-package com.example.fox_kt.infra.s3.config
+package com.example.fox_kt.infrastructure.s3.config
 
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.AWSStaticCredentialsProvider

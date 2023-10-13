@@ -1,6 +1,6 @@
-package com.example.fox_kt.infra.mail.presentation
+package com.example.fox_kt.infrastructure.mail.presentation
 
-import com.example.fox_kt.infra.mail.service.CreateEmailCodeService
+import com.example.fox_kt.infrastructure.mail.service.CreateEmailCodeService
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam

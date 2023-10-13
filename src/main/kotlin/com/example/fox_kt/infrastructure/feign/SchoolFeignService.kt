@@ -1,8 +1,7 @@
-package com.example.fox_kt.infra.feign
+package com.example.fox_kt.infrastructure.feign
 
 import com.example.fox_kt.domain.school.domain.School
 import com.example.fox_kt.domain.school.domain.repository.SchoolRepository
-import com.example.fox_kt.domain.school.presentation.SchoolRequest
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

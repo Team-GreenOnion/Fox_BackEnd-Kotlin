@@ -1,6 +1,6 @@
 package com.example.fox_kt.domain.school.presentation
 
-import com.example.fox_kt.infra.feign.SchoolFeignService
+import com.example.fox_kt.infrastructure.feign.SchoolFeignService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 

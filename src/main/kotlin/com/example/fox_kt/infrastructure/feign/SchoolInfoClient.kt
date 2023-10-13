@@ -1,4 +1,4 @@
-package com.example.fox_kt.infra.feign
+package com.example.fox_kt.infrastructure.feign
 
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping

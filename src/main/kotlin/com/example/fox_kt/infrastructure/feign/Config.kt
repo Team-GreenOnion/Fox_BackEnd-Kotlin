@@ -1,4 +1,4 @@
-package com.example.fox_kt.infra.feign
+package com.example.fox_kt.infrastructure.feign
 
 import feign.Logger
 import org.springframework.context.annotation.Bean
