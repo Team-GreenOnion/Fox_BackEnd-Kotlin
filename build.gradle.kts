@@ -51,7 +51,7 @@ dependencies {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        jvmTarget = "17" // 여기에서 원하는 JDK 버전을 지정하세요.
+        jvmTarget = "17"
     }
 }
 
