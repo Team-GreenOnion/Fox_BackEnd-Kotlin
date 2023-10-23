@@ -47,6 +47,10 @@ dependencies {
     implementation(enforcedPlatform("org.springframework.cloud:spring-cloud-dependencies:2020.0.5"))
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     implementation ("org.springframework.cloud:spring-cloud-starter-loadbalancer")
+
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    implementation("org.springframework.boot:spring-boot-starter-websocket")
 }
 
 tasks.withType<KotlinCompile> {
