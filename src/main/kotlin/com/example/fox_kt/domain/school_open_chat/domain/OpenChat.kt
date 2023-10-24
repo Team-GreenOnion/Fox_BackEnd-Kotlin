@@ -8,7 +8,7 @@ import javax.persistence.Entity
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 
-@Entity(name = "open_chat")
+@Entity(name = "tbl_open_chat")
 class OpenChat(
 
     @EmbeddedId

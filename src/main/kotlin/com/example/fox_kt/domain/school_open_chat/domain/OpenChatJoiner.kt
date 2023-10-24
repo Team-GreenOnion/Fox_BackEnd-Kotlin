@@ -8,7 +8,7 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 
-@Entity(name = "open_chat_joiner")
+@Entity(name = "tbl_open_chat_joiner")
 class OpenChatJoiner(
     @EmbeddedId
     val id: OpenChatJoinerId,
