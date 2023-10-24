@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne
 @Entity(name = "open_chat_joiner")
 class OpenChatJoiner(
     @EmbeddedId
-    var id: OpenChatJoinerId,
+    val id: OpenChatJoinerId,
 
     @ManyToOne @Id
     @JoinColumn(name = "user_id", nullable = false)
