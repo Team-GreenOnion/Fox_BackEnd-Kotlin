@@ -17,5 +17,6 @@ class CreateOpenChatService (
             roomName = request.chatRoomName,
             id = null
         )
+        openChatRoomRepository.save(openChatRoom)
     }
 }
