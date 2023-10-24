@@ -6,7 +6,7 @@ import javax.persistence.Entity
 import javax.persistence.ManyToOne
 
 @Entity
-class SchoolOpenChat(
+class OpenChat(
     id : Long?,
 
     @ManyToOne
