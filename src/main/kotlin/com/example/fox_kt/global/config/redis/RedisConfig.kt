@@ -1,4 +1,4 @@
-package com.example.fox_kt.global.config
+package com.example.fox_kt.global.config.redis
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean

@@ -1,4 +1,4 @@
-package com.example.fox_kt.global.config
+package com.example.fox_kt.global.config.security
 
 import com.example.fox_kt.global.security.jwt.JwtProvider
 import com.example.fox_kt.global.security.jwt.JwtTokenFilter
