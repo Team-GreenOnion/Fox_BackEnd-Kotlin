@@ -5,8 +5,8 @@ import javax.persistence.Entity
 import javax.persistence.OneToMany
 
 @Entity(name = "tbl_open_chat_room")
-class OpenChatRoom (
-    id : Long?,
+class OpenChatRoom(
+    id: Long?,
 
     val roomName: String,
 
