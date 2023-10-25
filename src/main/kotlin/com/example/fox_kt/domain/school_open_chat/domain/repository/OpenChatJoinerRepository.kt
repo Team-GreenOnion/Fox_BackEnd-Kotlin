@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface OpenChatJoinerRepository: JpaRepository<OpenChatJoiner, Long> {
-    fun findAllByChatRoom(openChatRoom: OpenChatRoom): List<OpenChatJoiner>
-
+    fun findAllByOpenChatRoom(openChatRoom: OpenChatRoom): List<OpenChatJoiner>
 
 }

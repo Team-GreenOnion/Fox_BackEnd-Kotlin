@@ -62,7 +62,7 @@ class ChatSocketService(
     }
 
     private fun orderChatRoomParticipants(sendTargetChatRoom: OpenChatRoom, sender: User) =
-        openChatJoinerRepository.findAllByChatRoom(sendTargetChatRoom)
+        openChatJoinerRepository.findAllByOpenChatRoom(sendTargetChatRoom)
             .map { joiner -> clients.first { it.userPrincipal.name == joiner.user.name } }
             .filter { it.userPrincipal.name != sender.name }
 
