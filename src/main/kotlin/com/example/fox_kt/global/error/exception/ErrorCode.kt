@@ -20,4 +20,6 @@ enum class ErrorCode (
     SCHOOL_NOT_FOUND(404, "School Not Found"),
 
     SELECT_1_OR_MORE_AND_3_OR_LESS(401, "Select 1 or More And 3 or Less"),
+
+    OPEN_CHAT_ROOM_NOT_FOUND(404, "Open Chat Not Found")
 }
