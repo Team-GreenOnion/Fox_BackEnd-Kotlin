@@ -15,15 +15,15 @@ class OpenChatJoiner(
 
     @ManyToOne @Id
     @JoinColumn(name = "user_id", nullable = false)
-    var user: User,
+    val user: User,
 
     @ManyToOne @Id
     @JoinColumn(name = "open_chat_room_id", nullable = false)
-    var openChatRoom: OpenChatRoom
+    val openChatRoom: OpenChatRoom
 ) {
     @Embeddable
     data class OpenChatJoinerId(
-        var openChatRoom: Long? = null,
-        var user: Long? = null
+        val openChatRoom: Long? = null,
+        val user: Long? = null
     )
 }
