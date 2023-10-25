@@ -2,13 +2,13 @@ package com.example.fox_kt.domain.school_open_chat.domain
 
 import com.example.fox_kt.domain.user.domain.User
 import java.io.Serializable
-import javax.persistence.Embeddable
-import javax.persistence.EmbeddedId
 import javax.persistence.Entity
 import javax.persistence.Id
+import javax.persistence.IdClass
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 
+@IdClass(OpenChatJoiner.IdClass::class)
 @Entity(name = "tbl_open_chat_joiner")
 class OpenChatJoiner(
 
