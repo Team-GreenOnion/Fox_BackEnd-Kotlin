@@ -12,13 +12,12 @@ import javax.persistence.ManyToOne
 @Entity(name = "tbl_open_chat")
 class OpenChat(
 
-    @Id
-    @ManyToOne
+    @ManyToOne @Id
     @JoinColumn(name = "user_id", nullable = false)
     val user: User,
 
-    @Id
-    @ManyToOne
+
+    @ManyToOne @Id
     @JoinColumn(name = "open_chat_room_id", nullable = false)
     val openChatRoom: OpenChatRoom,
 
