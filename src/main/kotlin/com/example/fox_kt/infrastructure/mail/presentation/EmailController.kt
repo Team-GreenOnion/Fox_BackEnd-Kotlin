@@ -14,5 +14,4 @@ class EmailController(
     @PostMapping
     fun requestEmailCode(@RequestParam email : String) : String? =
          createEmailCodeService.sendVerificationCode(email)
-
 }
