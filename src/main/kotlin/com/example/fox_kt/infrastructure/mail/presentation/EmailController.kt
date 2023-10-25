@@ -12,7 +12,7 @@ class EmailController(
     private val createEmailCodeService: CreateEmailCodeService,
 ) {
     @PostMapping
-    fun requestEmailCode(@RequestParam email : String) : String? {
-        return createEmailCodeService.sendVerificationCode(email)
-    }
+    fun requestEmailCode(@RequestParam email : String) : String? =
+         createEmailCodeService.sendVerificationCode(email)
+
 }
