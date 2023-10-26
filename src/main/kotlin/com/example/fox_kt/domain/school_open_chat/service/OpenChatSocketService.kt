@@ -1,10 +1,7 @@
 package com.example.fox_kt.domain.school_open_chat.service
 
-import com.example.fox_kt.domain.school_open_chat.domain.OpenChat
-import com.example.fox_kt.domain.school_open_chat.domain.OpenChatRoom
-import com.example.fox_kt.domain.school_open_chat.domain.repository.OpenChatJoinerRepository
-import com.example.fox_kt.domain.school_open_chat.domain.repository.OpenChatRepository
-import com.example.fox_kt.domain.school_open_chat.domain.repository.OpenChatRoomRepository
+import com.example.fox_kt.domain.school_open_chat.domain.*
+import com.example.fox_kt.domain.school_open_chat.domain.repository.*
 import com.example.fox_kt.domain.school_open_chat.exception.OpenChatNotFoundException
 import com.example.fox_kt.domain.school_open_chat.presentation.request.SendOpenChatRequest
 import com.example.fox_kt.domain.school_open_chat.presentation.response.ReceiveOpenChatResponse
@@ -15,6 +12,7 @@ import com.example.fox_kt.global.config.socket.ServerEndpointConfigurator
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import org.joda.time.DateTime
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import javax.websocket.OnClose
@@ -36,9 +34,12 @@ class ChatSocketService(
         private val clients = ArrayList<Session>()
     }
 
+    init {
+        objectMapper.registerModule(JavaTimeModule()).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+    }
+
     @OnOpen
     fun socketOpen(session: Session) {
-        objectMapper.registerModule(JavaTimeModule()).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
         clients.add(session)
     }
 
@@ -49,25 +50,32 @@ class ChatSocketService(
 
     @OnMessage
     fun socketSend(session: Session, message: String) {
+            val dto = objectMapper.readValue(message, SendOpenChatRequest::class.java)
+            val sender = findUserBySession(session) ?: throw UserNotFoundException
+            val sendTargetChatRoom = openChatRoomRepository.findByIdOrNull(dto.openChatRoomId) ?: throw OpenChatNotFoundException
+            val sendAt = DateTime.now()
+            val chatRoomParticipants = openChatRoomParticipants(sendTargetChatRoom, sender)
+            val chat = createAndSaveChat(sender, sendTargetChatRoom, dto.message, sendAt)
 
-        val dto = objectMapper.readValue(message, SendOpenChatRequest::class.java)
-
-        val sender = userRepository.findByName(session.userPrincipal.name) ?: throw UserNotFoundException
-        val sendTargetChatRoom = openChatRoomRepository.findByIdOrNull(dto.openChatRoomId) ?: throw OpenChatNotFoundException
-
-        val chatRoomParticipants = orderChatRoomParticipants(sendTargetChatRoom, sender)
-        val chat = openChatRepository.save(OpenChat(user = sender, openChatRoom = sendTargetChatRoom, message = dto.message))
-
-        sendChat(chat, chatRoomParticipants)
+            sendChat(chat, chatRoomParticipants)
     }
 
-    private fun orderChatRoomParticipants(sendTargetChatRoom: OpenChatRoom, sender: User) =
-        openChatJoinerRepository.findAllByOpenChatRoom(sendTargetChatRoom)
-            .map { joiner -> clients.first { it.userPrincipal.name == joiner.user.name } }
+    private fun findUserBySession(session: Session): User? {
+        return userRepository.findByName(session.userPrincipal.name)
+    }
+
+    private fun openChatRoomParticipants(sendTargetChatRoom: OpenChatRoom, sender: User): List<Session> {
+        return openChatJoinerRepository.findAllByOpenChatRoom(sendTargetChatRoom)
+            .mapNotNull { joiner -> clients.firstOrNull { it.userPrincipal.name == joiner.user.name } }
             .filter { it.userPrincipal.name != sender.name }
+    }
+
+    private fun createAndSaveChat(sender: User, sendTargetChatRoom: OpenChatRoom, message: String, createAt: DateTime): OpenChat {
+        return openChatRepository.save(OpenChat(user = sender, openChatRoom = sendTargetChatRoom, message = message, createAt = createAt))
+    }
 
     private fun sendChat(openChat: OpenChat, chatRoomParticipants: List<Session>) {
         val chatDto = objectMapper.writeValueAsString(ReceiveOpenChatResponse.of(openChat))
-        chatRoomParticipants.map { it.basicRemote.sendText(chatDto) }
+        chatRoomParticipants.forEach { it.basicRemote.sendText(chatDto) }
     }
 }

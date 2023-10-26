@@ -1,6 +1,7 @@
 package com.example.fox_kt.domain.school_open_chat.domain
 
 import com.example.fox_kt.domain.user.domain.User
+import org.joda.time.DateTime
 import java.io.Serializable
 import javax.persistence.Entity
 import javax.persistence.Id
@@ -22,6 +23,8 @@ class OpenChat(
     val openChatRoom: OpenChatRoom,
 
     val message: String,
+
+    val createAt: DateTime
 
 ) {
     data class IdClass(
