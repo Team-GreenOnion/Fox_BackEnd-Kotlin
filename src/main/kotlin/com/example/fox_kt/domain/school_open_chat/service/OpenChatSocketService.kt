@@ -50,12 +50,12 @@ class ChatSocketService(
 
     @OnMessage
     fun socketSend(session: Session, message: String) {
-            val dto = objectMapper.readValue(message, SendOpenChatRequest::class.java)
+            val openChatRequest = objectMapper.readValue(message, SendOpenChatRequest::class.java)
             val sender = findUserBySession(session) ?: throw UserNotFoundException
-            val sendTargetChatRoom = openChatRoomRepository.findByIdOrNull(dto.openChatRoomId) ?: throw OpenChatNotFoundException
+            val sendTargetChatRoom = openChatRoomRepository.findByIdOrNull(openChatRequest.openChatRoomId) ?: throw OpenChatNotFoundException
             val sendAt = DateTime.now()
             val chatRoomParticipants = openChatRoomParticipants(sendTargetChatRoom, sender)
-            val chat = createAndSaveChat(sender, sendTargetChatRoom, dto.message, sendAt)
+            val chat = createAndSaveChat(sender, sendTargetChatRoom, openChatRequest.message, sendAt)
 
             sendChat(chat, chatRoomParticipants)
     }
@@ -75,7 +75,7 @@ class ChatSocketService(
     }
 
     private fun sendChat(openChat: OpenChat, chatRoomParticipants: List<Session>) {
-        val chatDto = objectMapper.writeValueAsString(ReceiveOpenChatResponse.of(openChat))
-        chatRoomParticipants.forEach { it.basicRemote.sendText(chatDto) }
+        val receiveOpenChatResponse = objectMapper.writeValueAsString(ReceiveOpenChatResponse.of(openChat))
+        chatRoomParticipants.forEach { it.basicRemote.sendText(receiveOpenChatResponse) }
     }
 }
