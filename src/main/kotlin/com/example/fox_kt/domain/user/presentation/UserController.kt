@@ -8,10 +8,12 @@ import com.example.fox_kt.domain.user.presentation.dto.response.QueryMyInfoRespo
 import com.example.fox_kt.domain.user.service.*
 import com.example.fox_kt.global.security.jwt.dto.TokenResponse
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 
+@Tag(name = "user", description = "user API")
 @RestController
 @RequestMapping("/user")
 class UserController(
