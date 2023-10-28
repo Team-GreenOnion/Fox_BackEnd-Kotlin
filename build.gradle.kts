@@ -51,6 +51,9 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     implementation("org.springframework.boot:spring-boot-starter-websocket")
+
+    implementation ("org.springdoc:springdoc-openapi-ui:1.6.11")
+
 }
 
 tasks.withType<KotlinCompile> {
