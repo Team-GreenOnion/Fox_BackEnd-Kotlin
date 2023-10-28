@@ -7,6 +7,7 @@ import com.example.fox_kt.domain.user.presentation.dto.request.UserSignupRequest
 import com.example.fox_kt.domain.user.presentation.dto.response.QueryMyInfoResponse
 import com.example.fox_kt.domain.user.service.*
 import com.example.fox_kt.global.security.jwt.dto.TokenResponse
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 
@@ -20,6 +21,7 @@ class UserController(
     private val findPasswordWithEmailService: FindPasswordWithEmailService,
     private val queryMyInfoService: QueryMyInfoService
 ) {
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/signup")
     fun signup(@RequestBody userSignupRequest: UserSignupRequest) =
         userSignupService.signup(userSignupRequest)
@@ -28,6 +30,7 @@ class UserController(
     fun login(@RequestBody userLoginRequest: UserLoginRequest) : TokenResponse =
         userLoginService.login(userLoginRequest)
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/profile/upload")
     fun uploadProfile(@RequestPart(required = false, value = "profile") profile : MultipartFile) =
         uploadUserProfileService.uploadProfile(profile)
