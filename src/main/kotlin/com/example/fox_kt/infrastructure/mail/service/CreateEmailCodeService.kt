@@ -6,6 +6,7 @@ import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 import java.security.SecureRandom
+import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
 
 
@@ -26,14 +27,15 @@ class CreateEmailCodeService (
     }
 
     @Async
-    fun sendVerificationCode(email: String): String? {
+    fun sendVerificationCode(email: String): CompletableFuture<String> {
         val verificationCode = generateVerificationCode()
         val message = SimpleMailMessage()
         message.setTo(email)
         message.subject = "회원 가입 인증 코드"
         message.text = "인증 코드: $verificationCode"
         mailSender.send(message)
-        redisTemplate.opsForValue()[email, verificationCode, 6] = TimeUnit.MINUTES
-        return verificationCode
+        redisTemplate.opsForValue()[email] = verificationCode
+        redisTemplate.expire(email, 6, TimeUnit.MINUTES)
+        return CompletableFuture.completedFuture(verificationCode)
     }
 }

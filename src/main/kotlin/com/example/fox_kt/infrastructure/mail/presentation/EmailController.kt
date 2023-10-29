@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.util.concurrent.CompletableFuture
 
 @Tag(name = "email", description = "이메일 인증코드 API")
 @RestController
@@ -17,6 +18,7 @@ class EmailController(
 
     @Operation(summary = "이메일 인증번호 생성")
     @PostMapping
-    fun requestEmailCode(@RequestParam email : String) : String? =
-         createEmailCodeService.sendVerificationCode(email)
+    fun requestEmailCode(@RequestParam email: String): CompletableFuture<String> =
+     createEmailCodeService.sendVerificationCode(email)
+
 }
