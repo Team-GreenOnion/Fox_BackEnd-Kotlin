@@ -18,7 +18,7 @@ class EmailController(
 
     @Operation(summary = "이메일 인증번호 생성")
     @PostMapping
-    fun requestEmailCode(@RequestParam email: String): CompletableFuture<String> =
+    fun requestEmailCode(@RequestParam email: String): String =
      createEmailCodeService.sendVerificationCode(email)
 
 }
