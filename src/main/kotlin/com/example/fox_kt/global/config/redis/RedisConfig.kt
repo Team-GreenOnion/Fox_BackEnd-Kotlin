@@ -6,8 +6,10 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
 import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories
 
 @Configuration
+@EnableRedisRepositories
 class RedisConfig(
     @Value("\${redis.host}")
     private val host : String,
@@ -20,9 +22,9 @@ class RedisConfig(
     }
 
     @Bean
-    fun redisTemplate(redisConnectionFactory: RedisConnectionFactory): RedisTemplate<String, Any> {
-        val redisTemplate = RedisTemplate<String, Any>()
-        redisTemplate.setConnectionFactory(redisConnectionFactory)
+    fun redisTemplate(): RedisTemplate<*, *>? {
+        val redisTemplate: RedisTemplate<*, *> = RedisTemplate<Any, Any>()
+        redisTemplate.connectionFactory = redisConnectionFactory()
         return redisTemplate
     }
 }
