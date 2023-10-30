@@ -23,8 +23,6 @@ class UserSignupService (
     @Transactional
     fun signup (userSignupRequest: UserSignupRequest) {
 
-        val validEmailCode = mailRepository.findByIdOrNull(userSignupRequest.email)?: throw EmailCodeMissMatchException
-
         if (userRepository.existsByEmail(userSignupRequest.email)) {
             throw EmailAlreadyExistsException
         }
