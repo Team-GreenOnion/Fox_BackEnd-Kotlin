@@ -15,10 +15,10 @@ import org.springframework.transaction.annotation.Transactional
 class UserSignupService (
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
-    private val mailRepository: MailRepository
 ){
     @Transactional
     fun signup (userSignupRequest: UserSignupRequest) {
+
 
         if (userRepository.existsByEmail(userSignupRequest.email)) {
             throw EmailAlreadyExistsException
