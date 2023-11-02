@@ -1,8 +1,5 @@
 package com.example.fox_kt.infrastructure.mail.service
 
-import com.example.fox_kt.infrastructure.mail.config.EmailConfig
-import com.example.fox_kt.infrastructure.mail.domain.Mail
-import com.example.fox_kt.infrastructure.mail.domain.repository.MailRepository
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.mail.SimpleMailMessage
 import org.springframework.mail.javamail.JavaMailSender
