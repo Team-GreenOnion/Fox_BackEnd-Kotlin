@@ -13,10 +13,12 @@ class QueryMyInfoService(
     @Transactional(readOnly = true)
     fun queryMyInfo() : QueryMyInfoResponse {
         val user: User = userFacade.getCurrentUser()
+
         return QueryMyInfoResponse(
-                name = user.name,
-                email = user.email,
-                sex = user.sex
+            name = user.name,
+            email = user.email,
+            sex = user.sex,
+            interest = user.interest
         )
     }
 }
