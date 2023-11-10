@@ -20,6 +20,6 @@ class UserLoginService(
         if (!passwordEncoder.matches(userLoginRequest.password, user.password)) {
             throw PasswordMissMatchException
         }
-        return jwtTokenProvider.getToken(user)
+        return jwtTokenProvider.getToken(user.email)
     }
 }
