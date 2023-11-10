@@ -17,6 +17,7 @@ class QueryMyInfoService(
         return QueryMyInfoResponse(
             name = user.name,
             email = user.email,
+            profileUrl = user.profileUrl,
             sex = user.sex,
             interest = user.interest
         )
