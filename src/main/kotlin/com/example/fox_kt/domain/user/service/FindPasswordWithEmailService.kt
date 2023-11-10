@@ -5,7 +5,9 @@ import com.example.fox_kt.domain.user.exception.EmailCodeMissMatchException
 import com.example.fox_kt.domain.user.exception.PasswordMissMatchException
 import com.example.fox_kt.domain.user.facade.UserFacade
 import com.example.fox_kt.domain.user.presentation.dto.request.FindPasswordWthEmailRequest
+import com.example.fox_kt.infrastructure.mail.domain.repository.MailRepository
 import org.springframework.data.redis.core.StringRedisTemplate
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -14,19 +16,18 @@ import org.springframework.transaction.annotation.Transactional
 class FindPasswordWithEmailService(
     private val passwordEncoder: PasswordEncoder,
     private val userFacade: UserFacade,
-    private val stringRedisTemplate: StringRedisTemplate
+    private val mailRepository: MailRepository
 ) {
      @Transactional
-     fun passwordWithEmail(findPasswordWthEmailRequest: FindPasswordWthEmailRequest) {
-         val user : User = userFacade.getUserByEmail(findPasswordWthEmailRequest.email)
+     fun passwordWithEmail(request: FindPasswordWthEmailRequest) {
+         val user : User = userFacade.getUserByEmail(request.email)
 
-         if (findPasswordWthEmailRequest.email!=(stringRedisTemplate.opsForValue().get(findPasswordWthEmailRequest.email))) {
-             throw EmailCodeMissMatchException
-         }
+         val validEmailCode = mailRepository.findByIdOrNull(request.email) ?: throw EmailCodeMissMatchException
 
-         if (findPasswordWthEmailRequest.newPassword != findPasswordWthEmailRequest.validPassword) {
+         if (request.newPassword != request.validPassword) {
              throw PasswordMissMatchException
          }
-         user.modifyPassword(passwordEncoder.encode(findPasswordWthEmailRequest.newPassword))
+         val password = passwordEncoder.encode(request.newPassword)
+         user.modifyPassword(password)
     }
 }

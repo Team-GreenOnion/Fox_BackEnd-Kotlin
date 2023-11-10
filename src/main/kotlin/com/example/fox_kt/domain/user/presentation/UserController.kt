@@ -50,7 +50,7 @@ class UserController(
 
     @Operation(summary = "비밀번호 찾기")
     @PatchMapping("/new/password")
-    fun passwordWithEmail(findPasswordWthEmailRequest: FindPasswordWthEmailRequest) =
+    fun passwordWithEmail(@RequestBody findPasswordWthEmailRequest: FindPasswordWthEmailRequest) =
         findPasswordWithEmailService.passwordWithEmail(findPasswordWthEmailRequest)
 
 
