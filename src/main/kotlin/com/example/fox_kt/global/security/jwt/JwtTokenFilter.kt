@@ -7,19 +7,19 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JwtTokenFilter (
-    private val jwtProvider: JwtProvider
-): OncePerRequestFilter() {
-
+class JwtTokenFilter(
+    private val jwtTokenProvider: JwtTokenProvider
+) : OncePerRequestFilter() {
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val token : String? = jwtProvider.resolveToken(request)
-        if (token != null) {
-            val authentication : Authentication = jwtProvider.authentication(token)
-            SecurityContextHolder.getContext().authentication
+        val bearer: String? = jwtTokenProvider.resolveToken(request)
+
+        if (bearer != null) {
+            val authentication: Authentication? = jwtTokenProvider.authorization(bearer)
+            SecurityContextHolder.getContext().authentication = authentication
         }
         filterChain.doFilter(request, response)
     }

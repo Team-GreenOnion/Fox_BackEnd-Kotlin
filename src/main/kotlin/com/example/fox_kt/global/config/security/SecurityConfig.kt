@@ -1,6 +1,6 @@
 package com.example.fox_kt.global.config.security
 
-import com.example.fox_kt.global.security.jwt.JwtProvider
+import com.example.fox_kt.global.security.jwt.JwtTokenProvider
 import com.example.fox_kt.global.security.jwt.JwtTokenFilter
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.annotation.Bean
@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 class SecurityConfig (
-    private val jwtProvider: JwtProvider,
+    private val jwtTokenProvider: JwtTokenProvider,
     private val objectMapper: ObjectMapper
 ) {
     @Bean
@@ -31,7 +31,7 @@ class SecurityConfig (
             .anyRequest().permitAll()
             .and()
 
-        http.addFilterBefore(JwtTokenFilter(jwtProvider), UsernamePasswordAuthenticationFilter::class.java)
+        http.addFilterBefore(JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter::class.java)
 
         return http.build()
     }
