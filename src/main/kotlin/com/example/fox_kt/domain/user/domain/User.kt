@@ -27,7 +27,7 @@ class User(
 
     @Enumerated(EnumType.STRING)
     val sex: Sex,
-    
+
     @OneToMany
     val interest: List<Interest>? = null
 ) : BaseEntity(id) {

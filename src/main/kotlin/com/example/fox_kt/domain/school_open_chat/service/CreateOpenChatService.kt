@@ -15,6 +15,7 @@ class CreateOpenChatService (
     fun createOpenChat(request: CreateOpenChatRequest) {
         val openChatRoom = OpenChatRoom(
             roomName = request.chatRoomName,
+
             id = null
         )
         openChatRoomRepository.save(openChatRoom)
