@@ -1,5 +1,6 @@
 package com.example.fox_kt.global.config.security
 
+import com.example.fox_kt.global.config.filter.FilterConfig
 import com.example.fox_kt.global.security.jwt.JwtTokenProvider
 import com.example.fox_kt.global.security.jwt.JwtTokenFilter
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -23,13 +24,17 @@ class SecurityConfig (
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http.csrf()
             .disable()
-            .formLogin().disable()
+            .cors()
+            .and()
+            .formLogin()
+            .disable()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .authorizeRequests()
-            .anyRequest().permitAll()
-            .and()
+        http
+            .authorizeRequests().anyRequest().permitAll()
+
+        http .apply(FilterConfig(objectMapper))
 
         http.addFilterBefore(JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter::class.java)
 

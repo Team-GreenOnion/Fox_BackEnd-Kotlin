@@ -5,7 +5,6 @@ import com.example.fox_kt.domain.user.domain.repository.UserRepository
 import com.example.fox_kt.domain.user.exception.UserNotFoundException
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
-import java.util.UUID
 
 @Component
 class UserFacade(
