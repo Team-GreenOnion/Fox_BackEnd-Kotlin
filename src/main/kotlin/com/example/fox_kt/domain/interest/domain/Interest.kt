@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne
 
 @Entity
 class Interest(
-    id: Long?,
+    id: Long? = null,
     @ManyToOne
     val user: User,
 

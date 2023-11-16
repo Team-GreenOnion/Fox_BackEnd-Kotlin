@@ -27,7 +27,6 @@ class InterestService(
             val interest = Interest(
                 user = currentUser,
                 interest = selectInterest,
-                id = null
             )
             interestRepository.save(interest)
         }

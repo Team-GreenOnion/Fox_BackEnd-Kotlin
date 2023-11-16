@@ -9,7 +9,7 @@ import javax.persistence.EnumType
 import javax.persistence.Enumerated
 import javax.persistence.OneToMany
 
-@Entity
+@Entity(name = "tbl_user")
 class User(
     id : Long?,
 
@@ -22,7 +22,7 @@ class User(
     @Column(name = "name", nullable = false)
     val name: String,
 
-    @Column(name = "profile_image_url", nullable = false)
+    @Column(name = "profile_image_url", nullable = true)
     var profileUrl: String? = null,
 
     @Enumerated(EnumType.STRING)
