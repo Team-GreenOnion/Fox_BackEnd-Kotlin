@@ -17,18 +17,11 @@ class InterestService(
     @Transactional
     fun selectInterest(interestRequest: InterestRequest) {
         val currentUser: User = userFacade.getCurrentUser()
-        val selectedInterests: List<String> = interestRequest.interest
 
-        if (selectedInterests.isEmpty() || selectedInterests.size > 3) {
-            throw Select1orMoreAnd3orLess
-        }
-
-        selectedInterests.forEach { selectInterest ->
             val interest = Interest(
                 user = currentUser,
-                interest = selectInterest,
+                interest = interestRequest.interest,
             )
             interestRepository.save(interest)
-        }
     }
 }
