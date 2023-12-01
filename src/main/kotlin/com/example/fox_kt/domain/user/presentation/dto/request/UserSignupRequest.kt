@@ -1,6 +1,7 @@
 package com.example.fox_kt.domain.user.presentation.dto.request
 
 import com.example.fox_kt.domain.user.enums.Sex
+import com.example.fox_kt.domain.user.enums.Type
 import org.jetbrains.annotations.NotNull
 
 
@@ -16,5 +17,7 @@ data class UserSignupRequest(
     @NotNull
     val name : String,
     @NotNull
-    val sex : Sex
+    val sex : Sex,
+    @NotNull
+    val type: Type
 )

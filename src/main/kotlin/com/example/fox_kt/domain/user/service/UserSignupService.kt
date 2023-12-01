@@ -40,7 +40,8 @@ class UserSignupService (
             password = password,
             name = userSignupRequest.name,
             sex = userSignupRequest.sex,
-            id = null,
+            type = userSignupRequest.type,
+            id = null
         )
         userRepository.save(user)
     }

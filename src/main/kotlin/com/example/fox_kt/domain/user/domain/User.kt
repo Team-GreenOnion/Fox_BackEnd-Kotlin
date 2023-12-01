@@ -2,6 +2,7 @@ package com.example.fox_kt.domain.user.domain
 
 import com.example.fox_kt.domain.interest.domain.Interest
 import com.example.fox_kt.domain.user.enums.Sex
+import com.example.fox_kt.domain.user.enums.Type
 import com.example.fox_kt.global.entity.BaseEntity
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -27,6 +28,9 @@ class User(
 
     @Enumerated(EnumType.STRING)
     val sex: Sex,
+
+    @Enumerated(EnumType.STRING)
+    val type: Type,
 
     @OneToMany
     val interest: List<Interest>? = null
