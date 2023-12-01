@@ -2,10 +2,7 @@ package com.example.fox_kt.domain.user.service
 
 import com.example.fox_kt.domain.user.domain.User
 import com.example.fox_kt.domain.user.domain.repository.UserRepository
-import com.example.fox_kt.domain.user.exception.EmailAlreadyExistsException
-import com.example.fox_kt.domain.user.exception.EmailCodeMissMatchException
-import com.example.fox_kt.domain.user.exception.NameAlreadyExistsException
-import com.example.fox_kt.domain.user.exception.PasswordMissMatchException
+import com.example.fox_kt.domain.user.exception.*
 import com.example.fox_kt.domain.user.presentation.dto.request.UserSignupRequest
 import com.example.fox_kt.infrastructure.mail.domain.repository.MailRepository
 import org.springframework.data.redis.core.StringRedisTemplate
@@ -34,6 +31,10 @@ class UserSignupService (
         if (userSignupRequest.password != userSignupRequest.validPassword) {
             throw PasswordMissMatchException
         }
+        if (userSignupRequest.interest.lastIndex > 3 || userSignupRequest.interest.lastIndex < 1) {
+            throw SelectSizeException
+        }
+
         val password = passwordEncoder.encode(userSignupRequest.password)
         val user = User(
             email = userSignupRequest.email,
@@ -41,6 +42,7 @@ class UserSignupService (
             name = userSignupRequest.name,
             sex = userSignupRequest.sex,
             type = userSignupRequest.type,
+            interest = userSignupRequest.interest,
             id = null
         )
         userRepository.save(user)

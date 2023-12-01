@@ -1,14 +1,13 @@
 package com.example.fox_kt.domain.user.domain
 
-import com.example.fox_kt.domain.interest.domain.Interest
 import com.example.fox_kt.domain.user.enums.Sex
 import com.example.fox_kt.domain.user.enums.Type
 import com.example.fox_kt.global.entity.BaseEntity
 import javax.persistence.Column
+import javax.persistence.Convert
 import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
-import javax.persistence.OneToMany
 
 @Entity(name = "tbl_user")
 class User(
@@ -26,14 +25,16 @@ class User(
     @Column(name = "profile_image_url", nullable = true)
     var profileUrl: String? = null,
 
+    @Column(name = "interest", nullable = false)
+    @Convert
+    val interest: List<String>,
+
     @Enumerated(EnumType.STRING)
     val sex: Sex,
 
     @Enumerated(EnumType.STRING)
     val type: Type,
 
-    @OneToMany
-    val interest: List<Interest>? = null
 ) : BaseEntity(id) {
     fun modifyPassword(password: String) {
         this.password = password
