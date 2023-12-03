@@ -1,6 +1,5 @@
 package com.example.fox_kt.domain.user.presentation.dto.response
 
-import com.example.fox_kt.domain.interest.domain.Interest
 import com.example.fox_kt.domain.user.enums.Sex
 
 data class QueryMyInfoResponse(
@@ -8,5 +7,5 @@ data class QueryMyInfoResponse(
         val email: String,
         val profileUrl: String?,
         val sex: Sex,
-        val interest: List<Interest>?
+        val interest: List<String>?
 )
