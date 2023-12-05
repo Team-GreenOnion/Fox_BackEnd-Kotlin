@@ -11,16 +11,19 @@ import com.example.fox_kt.domain.open_chat.presentation.dto.response.ReceiveChat
 import com.example.fox_kt.domain.user.domain.User
 import com.example.fox_kt.domain.user.exception.UserNotFoundException
 import com.example.fox_kt.domain.user.facade.UserFacade
+import com.example.fox_kt.global.config.socket.ServerEndpointConfigurator
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import org.springframework.stereotype.Service
 import javax.websocket.OnClose
 import javax.websocket.OnMessage
 import javax.websocket.OnOpen
 import javax.websocket.Session
 import javax.websocket.server.ServerEndpoint
 
-@ServerEndpoint(value = "/chat")
+@ServerEndpoint(value = "/chat", configurator = ServerEndpointConfigurator::class)
+@Service
 class ChatSocketService(
     private val openChatRoomRepository: OpenChatRoomRepository,
     private val openChatJoinerRepository: OpenChatJoinerRepository,
