@@ -24,7 +24,7 @@ import javax.websocket.server.ServerEndpoint
 
 @ServerEndpoint(value = "/chat", configurator = ServerEndpointConfigurator::class)
 @Service
-class ChatSocketService(
+class OpenChatSocketService(
     private val openChatRoomRepository: OpenChatRoomRepository,
     private val openChatJoinerRepository: OpenChatJoinerRepository,
     private val openChatRepository: OpenChatRepository,
