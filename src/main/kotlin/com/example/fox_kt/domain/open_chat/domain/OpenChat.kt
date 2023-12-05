@@ -2,6 +2,7 @@ package com.example.fox_kt.domain.open_chat.domain
 
 import com.example.fox_kt.domain.user.domain.User
 import java.io.Serializable
+import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
@@ -22,7 +23,9 @@ class OpenChat(
     val openChatRoom: OpenChatRoom,
 
     @Column(name = "message", nullable = false)
-    val message: String
+    val message: String,
+
+    val createAt: LocalDateTime = LocalDateTime.now()
 ) {
 
     data class IdClass(
