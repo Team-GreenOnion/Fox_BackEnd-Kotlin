@@ -2,7 +2,6 @@ package com.example.fox_kt.domain.open_chat.domain
 
 import com.example.fox_kt.global.entity.BaseEntity
 import javax.persistence.Column
-import javax.persistence.Convert
 import javax.persistence.Entity
 import javax.persistence.OneToMany
 
@@ -12,7 +11,6 @@ class OpenChatRoom(
     @Column(name = "room_name",nullable = false, unique = true)
     val roomName: String,
 
-    @OneToMany(mappedBy = "open_chat_room")
-    @Convert
+    @OneToMany(mappedBy = "openChatRoom")
     val joiner: List<OpenChatJoiner>? = null
 ): BaseEntity(id)

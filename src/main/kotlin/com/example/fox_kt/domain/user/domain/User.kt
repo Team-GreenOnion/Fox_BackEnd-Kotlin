@@ -3,11 +3,7 @@ package com.example.fox_kt.domain.user.domain
 import com.example.fox_kt.domain.user.enums.Sex
 import com.example.fox_kt.domain.user.enums.Type
 import com.example.fox_kt.global.entity.BaseEntity
-import javax.persistence.Column
-import javax.persistence.Convert
-import javax.persistence.Entity
-import javax.persistence.EnumType
-import javax.persistence.Enumerated
+import javax.persistence.*
 
 @Entity(name = "tbl_user")
 class User(
@@ -26,8 +22,7 @@ class User(
     var profileUrl: String? = null,
 
     @Column(name = "interest", nullable = false)
-    @Convert
-    val interest: List<String>,
+    val interest: String,
 
     @Enumerated(EnumType.STRING)
     val sex: Sex,

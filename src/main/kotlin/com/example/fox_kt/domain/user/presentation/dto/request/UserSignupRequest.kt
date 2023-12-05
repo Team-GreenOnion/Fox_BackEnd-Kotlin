@@ -17,7 +17,7 @@ data class UserSignupRequest(
     @NotNull
     val name : String,
     @NotNull
-    val interest: List<String>,
+    val interest: String,
     @NotNull
     val sex : Sex,
     @NotNull

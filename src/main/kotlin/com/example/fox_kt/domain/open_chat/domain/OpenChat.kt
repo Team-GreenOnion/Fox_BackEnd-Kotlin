@@ -29,7 +29,7 @@ class OpenChat(
 ) {
 
     data class IdClass(
-        var chatRoom: Long? = null,
+        var openChatRoom: Long? = null,
         var user: Long? = null
     ) : Serializable
 
