@@ -1,13 +1,11 @@
 package com.example.fox_kt.domain.open_chat.service
 
 import com.example.fox_kt.domain.open_chat.domain.OpenChatJoiner
-import com.example.fox_kt.domain.open_chat.domain.OpenChatRoom
 import com.example.fox_kt.domain.open_chat.domain.repository.OpenChatJoinerRepository
 import com.example.fox_kt.domain.open_chat.domain.repository.OpenChatRoomRepository
 import com.example.fox_kt.domain.user.facade.UserFacade
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.*
 
 @Service
 class JoinRoomService(
