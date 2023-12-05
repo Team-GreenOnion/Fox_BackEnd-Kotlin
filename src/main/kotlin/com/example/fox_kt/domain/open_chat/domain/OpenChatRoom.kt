@@ -14,5 +14,5 @@ class OpenChatRoom(
 
     @OneToMany(mappedBy = "open_chat_room")
     @Convert
-    val joiner: List<OpenChatJoiner>
+    val joiner: List<OpenChatJoiner>? = null
 ): BaseEntity(id)

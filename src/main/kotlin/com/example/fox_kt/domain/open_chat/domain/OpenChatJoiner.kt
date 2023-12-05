@@ -17,7 +17,6 @@ class OpenChatJoiner(
     @Id @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     var user: User
-
 ) {
 
     data class IdClass(
