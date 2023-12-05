@@ -49,7 +49,3 @@ jwt:
   secret: ${SECRET_KEY}
   access_exp: ${ACCESS_EXP}
   refresh_exp: ${REFRESH_EXP}
-
-server:
-  port: 8888
-

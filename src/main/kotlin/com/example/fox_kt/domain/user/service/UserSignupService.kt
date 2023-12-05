@@ -31,9 +31,6 @@ class UserSignupService (
         if (userSignupRequest.password != userSignupRequest.validPassword) {
             throw PasswordMissMatchException
         }
-        if (userSignupRequest.interest.lastIndex > 3 || userSignupRequest.interest.lastIndex < 1) {
-            throw SelectSizeException
-        }
 
         val password = passwordEncoder.encode(userSignupRequest.password)
         val user = User(
@@ -42,7 +39,6 @@ class UserSignupService (
             name = userSignupRequest.name,
             sex = userSignupRequest.sex,
             type = userSignupRequest.type,
-            interest = userSignupRequest.interest,
             id = null
         )
         userRepository.save(user)

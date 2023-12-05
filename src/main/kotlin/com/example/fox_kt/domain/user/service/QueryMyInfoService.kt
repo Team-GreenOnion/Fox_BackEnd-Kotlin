@@ -19,7 +19,6 @@ class QueryMyInfoService(
             email = user.email,
             profileUrl = user.profileUrl,
             sex = user.sex,
-            interest = user.interest
         )
     }
 }

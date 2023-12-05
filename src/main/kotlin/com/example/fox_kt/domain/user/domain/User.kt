@@ -21,9 +21,6 @@ class User(
     @Column(name = "profile_image_url", nullable = true)
     var profileUrl: String? = null,
 
-    @Column(name = "interest", nullable = false)
-    val interest: String,
-
     @Enumerated(EnumType.STRING)
     val sex: Sex,
 

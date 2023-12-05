@@ -7,5 +7,4 @@ data class QueryMyInfoResponse(
         val email: String,
         val profileUrl: String?,
         val sex: Sex,
-        val interest: String
 )
