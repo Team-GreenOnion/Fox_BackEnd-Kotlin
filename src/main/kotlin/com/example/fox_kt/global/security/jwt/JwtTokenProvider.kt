@@ -26,9 +26,7 @@ class JwtTokenProvider(
     fun getToken(email: String): TokenResponse {
         val accessToken: String = generateToken(email, jwtProperties.accessExp)
         val refreshToken: String = generateRefreshToken(email)
-        val currentTimeMillis = System.currentTimeMillis()
-        val expirationTime = currentTimeMillis + (jwtProperties.accessExp * 1000)
-        return TokenResponse(accessToken = accessToken, refreshToken = refreshToken, expiredAt = expirationTime)
+        return TokenResponse(accessToken = accessToken, refreshToken = refreshToken)
     }
 
     fun generateRefreshToken(email: String): String {
