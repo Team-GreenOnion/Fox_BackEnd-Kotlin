@@ -9,8 +9,8 @@ import com.example.fox_kt.domain.open_chat.exception.OpenChatRoomNotFoundExcepti
 import com.example.fox_kt.domain.open_chat.presentation.dto.request.SendChatDto
 import com.example.fox_kt.domain.open_chat.presentation.dto.response.ReceiveChatResponse
 import com.example.fox_kt.domain.user.domain.User
+import com.example.fox_kt.domain.user.domain.repository.UserRepository
 import com.example.fox_kt.domain.user.exception.UserNotFoundException
-import com.example.fox_kt.domain.user.facade.UserFacade
 import com.example.fox_kt.global.config.socket.ServerEndpointConfigurator
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
@@ -28,7 +28,7 @@ class OpenChatSocketService(
     private val openChatRoomRepository: OpenChatRoomRepository,
     private val openChatJoinerRepository: OpenChatJoinerRepository,
     private val openChatRepository: OpenChatRepository,
-    private val userFacade: UserFacade,
+    private val userRepository: UserRepository,
     private val objectMapper: ObjectMapper,
 ) {
     companion object {
@@ -46,11 +46,11 @@ class OpenChatSocketService(
     @OnMessage
     fun socketSend(session: Session, message: String) {
         val request = objectMapper.readValue(message, SendChatDto::class.java)
-        val sender = userFacade.getUserByEmail(session.userPrincipal.name)
-        val sendOpenChat = openChatRoomRepository.findByRoomName(request.chatRoomName)?: throw OpenChatRoomNotFoundException
+        val sender = userRepository.findByEmail(session.userPrincipal.name)?: throw UserNotFoundException
+        val sendOpenChatRoom = openChatRoomRepository.findByRoomName(request.chatRoomName)?: throw OpenChatRoomNotFoundException
 
-        val chatRoomParticipants = orderChatRoomParticipants(sendOpenChat, sender)
-        val chat = openChatRepository.save(OpenChat(user = sender, openChatRoom = sendOpenChat, message = request.message))
+        val chatRoomParticipants = orderChatRoomParticipants(sendOpenChatRoom, sender)
+        val chat = openChatRepository.save(OpenChat(user = sender, openChatRoom = sendOpenChatRoom, message = request.message))
 
         sendOpenChat(chat, chatRoomParticipants)
     }
