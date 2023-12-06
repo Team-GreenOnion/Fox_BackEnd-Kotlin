@@ -52,14 +52,6 @@ class OpenChatSocketService(
 
         val chatRoomParticipants = orderChatRoomParticipants(sendOpenChatRoom, sender)
         val chat = openChatRepository.save(OpenChat(user = sender, openChatRoom = sendOpenChatRoom, message = request.message))
-
-        openChatJoinerRepository.save(
-            OpenChatJoiner(
-                user = sender,
-                openChatRoom = sendOpenChatRoom
-            )
-        )
-
         sendOpenChat(chat, chatRoomParticipants)
     }
 
