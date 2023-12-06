@@ -16,6 +16,7 @@ import com.example.fox_kt.global.config.socket.ServerEndpointConfigurator
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import javax.websocket.OnClose
 import javax.websocket.OnMessage
@@ -48,7 +49,7 @@ class OpenChatSocketService(
     fun socketSend(session: Session, message: String) {
         val request = objectMapper.readValue(message, SendChatDto::class.java)
         val sender = userRepository.findByEmail(session.userPrincipal.name)?: throw UserNotFoundException
-        val sendOpenChatRoom = openChatRoomRepository.findByRoomName(request.chatRoomName)?: throw OpenChatRoomNotFoundException
+        val sendOpenChatRoom = openChatRoomRepository.findByIdOrNull(request.roomId)?: throw OpenChatRoomNotFoundException
 
         val chatRoomParticipants = orderChatRoomParticipants(sendOpenChatRoom, sender)
         val chat = openChatRepository.save(OpenChat(user = sender, openChatRoom = sendOpenChatRoom, message = request.message))
