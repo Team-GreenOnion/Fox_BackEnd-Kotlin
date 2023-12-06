@@ -46,7 +46,7 @@ class OpenChatSocketService(
     @OnMessage
     fun socketSend(session: Session, message: String) {
         val request = objectMapper.readValue(message, SendChatDto::class.java)
-        val sender = userFacade.getUserByEmail(session.userPrincipal.name)?: throw UserNotFoundException
+        val sender = userFacade.getUserByEmail(session.userPrincipal.name)
         val sendOpenChat = openChatRoomRepository.findByRoomName(request.chatRoomName)?: throw OpenChatRoomNotFoundException
 
         val chatRoomParticipants = orderChatRoomParticipants(sendOpenChat, sender)
@@ -56,7 +56,7 @@ class OpenChatSocketService(
     }
 
     private fun orderChatRoomParticipants(sendTargetChatRoom: OpenChatRoom, sender: User) =
-        openChatRepository.findAllByOpenChatRoom(sendTargetChatRoom)
+        openChatJoinerRepository.findAllByOpenChatRoom(sendTargetChatRoom)
             .map { joiner -> clients.first { it.userPrincipal.name == joiner.user.name } }
             .filter { it.userPrincipal.name != sender.name }
 
