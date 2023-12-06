@@ -46,7 +46,7 @@ class OpenChatSocketService(
     @OnMessage
     fun socketSend(session: Session, message: String) {
         val request = objectMapper.readValue(message, SendChatDto::class.java)
-        val sender = userRepository.findByEmail(session.userPrincipal.name)?: throw UserNotFoundException
+        val sender = userRepository.findByEmail(session.userPrinncipal.name)?: throw UserNotFoundException
         val sendOpenChatRoom = openChatRoomRepository.findByRoomName(request.chatRoomName)?: throw OpenChatRoomNotFoundException
 
         val chatRoomParticipants = orderChatRoomParticipants(sendOpenChatRoom, sender)
