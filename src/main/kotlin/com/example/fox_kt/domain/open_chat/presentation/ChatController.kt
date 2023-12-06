@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/chat")
+@RequestMapping("/open/chat")
 class ChatController(
     private val createOpenChatRoomService: CreateOpenChatRoomService
 ) {
