@@ -1,6 +1,7 @@
 package com.example.fox_kt.domain.open_chat.service
 
 import com.example.fox_kt.domain.open_chat.domain.OpenChat
+import com.example.fox_kt.domain.open_chat.domain.OpenChatJoiner
 import com.example.fox_kt.domain.open_chat.domain.OpenChatRoom
 import com.example.fox_kt.domain.open_chat.domain.repository.OpenChatJoinerRepository
 import com.example.fox_kt.domain.open_chat.domain.repository.OpenChatRepository
@@ -51,6 +52,13 @@ class OpenChatSocketService(
 
         val chatRoomParticipants = orderChatRoomParticipants(sendOpenChatRoom, sender)
         val chat = openChatRepository.save(OpenChat(user = sender, openChatRoom = sendOpenChatRoom, message = request.message))
+
+        openChatJoinerRepository.save(
+            OpenChatJoiner(
+                user = sender,
+                openChatRoom = sendOpenChatRoom
+            )
+        )
 
         sendOpenChat(chat, chatRoomParticipants)
     }
